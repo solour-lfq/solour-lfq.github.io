@@ -1,0 +1,25 @@
+body{
+     color: blue;
+     background-color: white;
+}
+#pictureExplain {
+    font-size: 15px;
+    font-style: italic;
+}
+#compare li {
+    border: 20;
+    display: inline;
+}
+#campusOrigin {
+    height: 125px;
+    width: 200px;
+}
+#starryNight {
+    height: 125px;
+    width: 200px;
+}
+#campus {
+    position: relative;
+    left: 10px;
+}
+
