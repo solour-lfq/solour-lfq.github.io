@@ -1,6 +1,9 @@
 body{
      color: black;
      background-color: white;
+     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-weight: 600;     
+	font-size: 1.2em;
 }
 #pictureExplain {
     font-size: 15px;
@@ -10,16 +13,88 @@ body{
     border: 20;
     display: inline;
 }
-#campusOrigin {
-    height: 125px;
+#head {
+    height: 350px;
     width: 200px;
 }
-#starryNight {
-    height: 125px;
-    width: 200px;
+#bottom {
+	height: 400px;
+	width: 400px;
 }
-#campus {
-    position: relative;
-    left: 10px;
+#tum {
+	height: 300px;
+	width: 540px;
 }
-
+#sjtu {
+	height: 300px;
+	width: 540px;
+}
+#publications_img li{
+	display:inline;
+}
+#pub1 {
+	height: 300px;
+	width: 400px;
+}
+#pub2 {
+	height: 300px;
+	width: 350px;
+}
+#pub3 {
+	height: 300px;
+	width: 400px;
+}
+#b1 {
+	height: 300px;
+	width: 50px;
+}
+#b5 {
+	height: 300px;
+	width: 50px;
+}
+#competition_img li{
+	display:inline;
+}
+#com1 {
+	height: 300px;
+	width: 400px;
+}
+#com2 {
+	height: 250px;
+	width: 400px;
+}
+#com3 {
+	height: 300px;
+	width: 400px;
+}
+#b6 {
+	height: 300px;
+	width: 30px;
+}
+#b2 {
+	height: 300px;
+	width: 30px;
+}
+#other_img li{
+	display:inline;
+}
+#other1 {
+	height: 300px;
+	width: 400px;
+}
+#other2 {
+	height: 300px;
+	width: 400px;
+}
+#other3 {
+	height: 300px;
+	width: 400px;
+}
+#b3 {
+	height: 300px;
+	width: 0px;
+}
+#b4 {
+	height: 300px;
+	width: 00px;
+}
