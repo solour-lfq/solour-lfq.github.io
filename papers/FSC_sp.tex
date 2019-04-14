@@ -1,0 +1,698 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{fancyhdr} 
+\usepackage{tikz} 
+\usepackage{subfigure}
+\usepackage{geometry}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\geometry{a4paper,left=3cm,right=3cm,top=4cm}     
+\renewcommand\figurename{Figure}      
+\renewcommand\contentsname{Contents}   
+\renewcommand\abstractname{Abstract}   
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}%
+\usepackage{makecell}
+\renewcommand\tablename{Table}            
+\usepackage{lastpage}      
+\usepackage{setspace}          
+\usepackage{algorithm} %format of the algorithm 
+\usepackage{algorithmic} %format of the algorithm 
+\usepackage{multirow} %multirow for format of table 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}} 
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\usepackage{amsmath,bm} 
+\usepackage{xcolor}                         
+\usepackage{layout}  
+\usepackage{amsmath}   
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage{graphicx}                                         
+%\pagestyle{empty}                   %不设置页眉页脚        
+\begin{document}
+\begin{spacing}{2.0}
+
+\title{The Fireside Chat on Elements of Statistical Physics}
+\date{}
+\maketitle
+\tableofcontents
+\newpage
+\section{导语}
+
+\newpage
+\section{统计物理学的基本原理}
+\label{section:1}
+\subsection{相空间}
+对于拥有$s$个自由度的系统，其任意时刻的状态，以及今后的状态，唯一地由如下向量表征：
+\begin{equation}
+(q_{1},q_{2},\cdots,q_{s},p_{1},p_{2},\cdots,p_{s})
+\end{equation}
+或者等价地$(q_{1},q_{2},\cdots,q_{s},\dot{q_{1}},\dot{q_{2}},\cdots,\dot{q_{s}})$，区别在于前者是贴近哈密顿原理导出的，后者从拉格朗日量导出，通过勒让德变换可以联系二者。一般采取坐标加动量的描述，因为更容易进行量子物理的推广，以及分立性。这个向量所处于的空间就是该系统的\textbf{相空间}。
+
+整个系统随着时间的变化在它的相空间中画出一条曲线，称为它的相轨道。给定相轨道的出发点，它是唯一确定的。并且两条相轨道不会相交，否则和反演性矛盾。
+
+对于整个系统的一部分，即一个\textbf{子系统}，以$a$表征，它在长程中会经历各种可能的状态，考虑子系统的相空间，并将其切分为由诸多$\Delta q\Delta p$的小块组成的整体空间。从长程角度而言，子系统对应的状态/相点在子系统相空间中历经各个子块，从平稳的角度而言，子系统相点出于某个特定子块的时间占比是确定的：
+\begin{equation}
+\omega(q,p)=\lim_{t\rightarrow \infty}\frac{\Delta t}{t}
+\end{equation}
+
+其中$\Delta t$是子系统相点在$t$时间内处在$(q\sim q+\Delta q,p\sim p+\Delta p)$相区域的时间，它也等同于在任意一个时间观测该子系统时，它正好处于该相区域的概率，即微分到理想情况时：
+\begin{equation}
+\text{d} \omega = \rho(p_{1},p_{2},\cdots,p_{s},q_{1},q_{2},\cdots,q_{s}) \text{d}^{s}q\text{d}^{s} p
+\end{equation}
+
+这里密度函数$\rho$应该理解为联系两个微分$\text{d}\omega$和$\text{d}^{s}q\text{d}^{s}p$的函数，即$\frac{\text{d}\omega}{\text{d}^{s}p\text{d}^{s}q}$，这里的符号取广义微分的涵义，且密度函数应该满足（从广义微分的意义上而言）：
+\begin{equation}
+\int \rho \text{d}^{s}q\text{d}^{s}p = \int \text{d}\omega = 1
+\end{equation}
+
+对于一个物理量$f$而言，它在长程意义上的平均值应该是：
+\begin{equation}
+\langle f \rangle = \lim_{T\rightarrow \infty}\frac{1}{T}\int_{0}^{T}f(t)\text{d}t
+\end{equation}
+
+由于我们已经知道$\omega$的物理意义，所以在时间上的平均可以改写为对于状态的平均：
+\begin{equation}
+\langle f \rangle = \int f(q,p) \text{d}\omega = \int f(q,p)\rho(q,p) \text{d}^{s}q \text{d}^{s}p
+\end{equation}
+
+对于复数个子系统而言，不是一般性我们考虑两个子系统，并假设它们互相独立，这里互相独立的意思就是，一个系统的状态不会作用于另一个系统。换言之，如果同时考察两个系统所处的状态，跟分别地、独立地考察两个系统的状态，会得到一样的结果，即：
+\begin{equation}
+\text{d}\omega_{1,2}=\text{d}\omega_{1}\text{d}\omega_{2}
+\end{equation}
+
+这可以从独立事件的概率满足的贝叶斯公式得出，类似地进行微分，可以继而得到：
+\begin{equation}
+\rho_{1,2}\text{d}q^{1,2}\text{d}p^{1,2}=\rho_{1}\text{d}q^{1}\text{d}p^{1}\rho_{2}\text{d}q^{2}\text{d}p^{2}
+\end{equation}
+
+这里我们省略了$\rho_{\cdots}$对应的参数，上式的概率意义依旧是明显的。当两个子系统独立时，考虑一个联合系统的物理量，它是两个子系统对应量的乘积，即$f_{1,2}=f_{1}\cdot f_{2}$，则：
+\begin{equation}
+\begin{aligned}
+\langle f_{1,2} \rangle &= \int f_{1,2}(q_{1},p_{1},q_{2},p_{2})\rho_{1,2}\text{d}q^{1,2}\text{d}p^{1,2}\\
+&=\int f_{1}f_{2}\rho_{1}\rho_{2}\text{d}q^{1}\text{d}p^{1}\text{d}q^{2}\text{d}p^{2}\\
+&=(\int f_{1}\rho_{1}\text{d}q^{1}\text{d}p^{1})(\int f_{2}\rho_{2}\text{d}q^{2}\text{d}p^{2})\\
+&=\langle f_{1}\rangle \langle f_{2}\rangle
+\end{aligned}
+\end{equation}
+
+这也符合一般统计理论的结论，即独立变量函数的积的平均等于平均值的积。这一结论可以推导出中心极限的类似结论。考虑整体系统的一个物理量$f$，它是各个子系统对应该物理量的和$f=\sum_{i=1}^{N}f_{i}$，其中把整个系统分为$N$个互相独立的子系统。这种可加性是很普遍的，譬如运动积分和许多热力学量，所以这种讨论是不失一般性的。首先有：
+\begin{equation}
+\begin{aligned}
+\langle f \rangle &= \int f(q^{1\sim N},p^{1\sim N})\text{d}\rho_{1\sim N}q^{1\sim N}\text{d}p^{1\sim N} \\
+&=\int \sum_{i=1}^{N}f_{i}(q^{i},p^{i}) \prod_{i=1}^{N}\rho_{i}\text{d} q^{i}\text{d} p^{i}\\
+&=\sum_{i=1}^{N}\int f_{i}\prod_{i=1}^{N}\rho_{i}\text{d} q^{i}\text{d} p^{i}\\
+&= \sum_{i=1}^{N}\int(\int f_{i}\rho_{i}\text{d} q^{i}\text{d} p^{i}) \prod_{j=1,j\neq i}^{N}\rho_{j}\text{d} q^{j}\text{d} p^{j}\\
+&=\sum_{i=1}^{N}(\int f_{i}\rho_{i}\text{d} q^{i}\text{d} p^{i}) \\
+&=\sum_{i=1}^{N}\langle f_{i} \rangle
+\end{aligned}
+\end{equation}
+
+我们还可以继而考虑$f$的方均涨落，根据定义：
+\begin{equation}
+\langle (\Delta f)^{2}\rangle =\langle (\sum_{i=1}^{N}\Delta f_{i})^{2} \rangle
+\end{equation}
+
+但是对于$i\neq j$：
+\begin{equation}
+\langle \Delta f_{i}\Delta f_{j} \rangle = \langle \Delta f_{i}\rangle \langle \Delta f_{j}\rangle=0
+\end{equation}
+
+根据独立性乘积变量的讨论，所以：
+\begin{equation}
+\langle (\Delta f)^{2}\rangle =\sum_{i=1}^{N}\langle (\Delta f_{i})^{2} \rangle
+\end{equation}
+
+导致：
+\begin{equation}
+\frac{\sqrt{\langle (\Delta f)^{2}\rangle}}{\langle f\rangle} \propto \frac{1}{\sqrt{N}}
+\end{equation}
+
+这是中心极限定理，或者弱大数定律在统计物理中的体现，也是统计物理正确性的支柱。
+
+回到对于$\rho$的讨论，既然$\rho$是子系统相空间中的密度，就可以把它理解为一种相空间中的流体，并且满足流量的连续性方程：
+\begin{equation}
+\frac{\partial \rho}{\partial t}+\nabla\cdot (\rho \textbf{v}) = 0
+\end{equation}
+
+其中的$\textbf{v}$应该理解为概率流体在相空间中的流速，这种流速的成因是子系统状态在时间中的不断变迁，展开散度项：
+\begin{equation}
+\nabla\cdot(\rho\textbf{v})=\sum_{i=1}^{2s}\frac{\partial}{\partial x_{i}}(\rho v_{i})
+\end{equation}
+
+其中$s$为子系统的自由度，每个$x_{i}$对应于某个广义坐标或者广义动量，代入它们的形式并且利用哈密顿正则关系：
+\begin{equation}
+\begin{aligned}
+\nabla\cdot(\rho\textbf{v})&=\sum_{i=1}^{2s}\frac{\partial}{\partial x_{i}}(\rho v_{i}) \\
+&=\sum_{i=1}^{s}\left[\frac{\partial}{\partial q_{i}}\rho \dot{q_{i}}+\frac{\partial}{\partial p_{i}}\rho \dot{p_{i}} \right] \\
+&= \sum_{i=1}^{s}\left[\frac{\partial\rho}{\partial q_{i}} \dot{q_{i}}+\frac{\partial\rho}{\partial p_{i}} \dot{p_{i}} \right]+\rho\sum_{i=1}^{s}\left[\frac{\partial \dot{q_{i}}}{\partial q_{i}}+\frac{\partial \dot{p_{i}}}{\partial p_{i}} \right]\\
+&= \sum_{i=1}^{s}\left[\frac{\partial\rho}{\partial q_{i}} \dot{q_{i}}+\frac{\partial\rho}{\partial p_{i}} \dot{p_{i}} \right]\\
+&=\frac{\text{d}\rho}{\text{d} t}-\frac{\partial\rho}{\partial t}
+\end{aligned}
+\end{equation}
+
+所以连续性条件化归为$\frac{\text{d}\rho}{\text{d}t}=0$，所以$\rho$只能是运动积分的函数，而独立子系统联合密度可改写为连乘的形式蕴含着，分布函数的对数应该是可加的运动积分，总共有7个备选项，但是动量，角动量可以通过整体移动来消除，所以不是一般性的：
+\begin{equation}
+\ln \rho_{a}=\alpha_{a} + \beta E_{a}(q,p)
+\end{equation}
+
+其中$a$为子系统标记。换言之，子系统被观测处于某个状态$(q,p)$的概率，仅仅和$(q,p)$对应的能量有关。这继而引出一种理想情况，即子系统$a$的能量完全处于值$E_{0}$附近，即$(E_{0}-\Delta E,E_{0}+\Delta E)$，则此时可以认为，在$E_{a}\neq E_{0}$对应的$(q,p)$处，子系统被观测到的概率均为0，此时子系统的概率密度平均地分布在$E_{0}$对应的所有可能的$(q,p)$值的集合上，而这个值的集合是该相空间中的低维流形（$\lim \Delta E\rightarrow 0$时），导致归一化条件失效。此时要么对$\Delta E$进行非零化并且尝试在计算末尾消去，要么使用狄拉克函数来确保积分的有效性，具体地：
+\begin{equation}
+\rho = C\cdot \delta(E_{a}-E_{0})
+\end{equation}
+
+这个分布，称为微正则（micro-canonical）分布显然满足平稳分布的条件，因为系统的$E_{0}$守恒不变，所以$\rho$在相空间中任一点对时间的微分都是零。
+
+\subsection{量子统计基本原理}
+在量子物理的讨论范围内，我们不再能够直接地以（子）系统的广义坐标或者动量来唯一地表征系统，而需要预设（子）系统所处在的状态并继而推断它的坐标和动量表象。对于子系统，令它的哈密顿算符为$\hat{H}$，那么系统的状态可以在$\hat{H}$的特征状态张成的空间中进行唯一地表述：
+\begin{equation}
+|\psi\rangle=\sum_{n}c_{n}|\psi_{n}\rangle
+\end{equation}
+
+其中$|\psi_{n}\rangle$是$\hat{H}$的对应特征值，即能量为$E_{n}$的特征状态。此时子系统某个表象物理量$f$的观测平均值为：
+\begin{equation}
+\begin{aligned}
+\langle f\rangle =& \langle \psi | \hat{f}|\psi\rangle \\
+=&\sum_{n,m}c^{*}_{n}c_{m}\langle \psi_{n} | \hat{f}|\psi_{m}\rangle \\
+=&\sum_{n,m}w_{m,n}f_{n,m}
+\end{aligned}
+\end{equation}
+
+其中$w_{m,n}=c^{*}_{n}c_{m}$，而$f_{n,m}$是算符$\hat{f}$在$\hat{H}$的特征状态空间的基中的矩阵表达。$w_{m,n}$也可以看做算符$\hat{w}=|\psi\rangle\langle\psi|$在同一组基下的矩阵元素：
+\begin{equation}
+\begin{aligned}
+\langle \psi_{m}|\psi\rangle\langle\psi|\psi_{n}\rangle &= c_{m}c^{*}_{n}\\
+&= w_{n,m}.
+\end{aligned}
+\end{equation}
+
+现在可以进一步写出：
+\begin{equation}
+\begin{aligned}
+\langle f \rangle &= \sum_{n,m}w_{m,n}f_{n,m} \\
+&= \sum_{n}\left[\sum_{m}w_{m,n}f_{n,m} \right] \\
+&= \sum_{n}\left[\hat{f}\hat{w} \right]_{n} \\
+&= \text{tr}\left[\hat{f}\hat{w} \right]=\text{tr}\left[\hat{w}\hat{f} \right]
+\end{aligned}
+\end{equation}
+
+可以联想到这里的$\hat{w}$和量子统计理论中的密度算符$\hat{\rho}$的相似性，但是此处我们暂且局限于纯态系综（pure ensemble）的讨论中。$\hat{w}$的矩阵元素有一些其他限制，考虑:
+\begin{equation}
+\begin{aligned}
+p(|\psi\rangle \text{ is observed to be in }|\psi_{n}\rangle) &= |\langle \psi_{n}|\psi \rangle|^{2}\\
+&= \langle \psi_{n}|\psi\rangle\langle\psi|\psi_{n}\rangle \\
+&= w_{n,n}
+\end{aligned}
+\end{equation}
+
+所以应有$w_{n,n}\geq 0$，且$\sum_{n}w_{n,n}=\text{tr}(\hat{w})=1$。
+
+为了联系到相空间上，需要进一步考虑$|\psi\rangle$如何体现在广义坐标或者动量上，此时由于坐标和动量的不可交换性，无法同时考察，我们首先考虑坐标$q$，这一关系由波函数引导：
+\begin{equation}
+\langle q|\psi\rangle = \sum_{n} c_{n} \langle q | \psi_{n} \rangle
+\end{equation}
+
+所以以$|\psi \rangle$表征的子系统被发现处于$q$附近的概率为（此处的$q$是一个广义坐标值，也是$|q\rangle$在$\hat{q}$下对应的特征值）：
+\begin{equation}
+\begin{aligned}
+|\langle q | \psi \rangle|^{2}&= \left(\sum_{n} c^{*}_{n} \langle  \psi_{n}|q \rangle \right)\left(\sum_{m} c_{m} \langle q | \psi_{m} \rangle \right) \\
+&= \sum_{n,m}w_{m,n} \langle  \psi_{n}|q \rangle\langle q | \psi_{m} \rangle
+\end{aligned}
+\end{equation}
+
+也可以记：
+\begin{equation}
+|\langle q | \psi \rangle|^{2}=\langle q |\hat{w}| q\rangle
+\end{equation}
+
+这两种表达显然是等价的：
+\begin{equation}
+\begin{aligned}
+ \sum_{n,m}w_{m,n} \langle  \psi_{n}|q \rangle\langle q | \psi_{m} \rangle &=  \sum_{n,m}\langle \psi_{m}|\psi\rangle\langle \psi | \psi_{n}\rangle \langle  \psi_{n}|q \rangle\langle q | \psi_{m} \rangle \\ 
+&= \sum_{n,m} \langle \psi | \psi_{n}\rangle \langle  \psi_{n}|q \rangle \cdot \langle \psi | \psi_{m}\rangle \langle  \psi_{m}|q \rangle \\
+&=\left(\sum_{n}\langle \psi | \psi_{n}\rangle \langle  \psi_{n}|q \rangle \right)\left(\sum_{m}\langle \psi | \psi_{m}\rangle \langle  \psi_{m}|q \rangle \right) \\
+&= \langle \psi | \left(\sum_{n} | \psi_{n}\rangle \langle  \psi_{n}| \right)|q\rangle\cdot \langle \psi | \left(\sum_{m} | \psi_{m}\rangle \langle  \psi_{m}| \right)|q\rangle \\
+&= \langle q|\psi\rangle \langle \psi|q\rangle
+\end{aligned}
+\end{equation}
+
+在坐标空间中某一点的观测概率就是前一章里的$\rho$，类似地可以将该概率测度转换为长程时间测度：
+\begin{equation}
+\text{d}w_{q} = \langle q |\hat{w}|q\rangle \text{d}q
+\end{equation}
+
+对于动量的测量完全同理：
+\begin{equation}
+\text{d}w_{p} = \langle p |\hat{w}|p\rangle \text{d}p
+\end{equation}
+
+类似经典情况下的刘维尔定理，我们尝试导出量子情况下平稳状态的条件，此时应该有$\hat{w}$的所有矩阵元素不变（前提是假定$\hat{H}$不变，否则需要进入扰动理论进一步探讨），换言之：$\frac{\partial}{\partial t} w_{m,n}$应为零。回忆一下$|\psi\rangle$在以$\hat{H}$为哈密顿算符的情形下随时间的演变，众所周知地：
+\begin{equation}
+\begin{aligned}
+|\psi\rangle(t) &= \mathcal{U}(t)|\psi\rangle \\
+&=\exp \left\{-\frac{it\hat{H}}{\hbar} \right\}|\psi\rangle \\
+&=\exp \left\{-\frac{it\hat{H}}{\hbar} \right\}\sum_{n}c_{n}|\psi_{n}\rangle \\
+&=\sum_{n}c_{n}\exp \left\{-\frac{itE_{n}}{\hbar} \right\}|\psi_{n}\rangle \\
+&=\sum_{n}c_{n}(t)| \psi_{n}\rangle 
+\end{aligned}
+\end{equation}
+
+现在我们可以显式地写出：
+\begin{equation}
+\begin{aligned}
+\frac{\partial}{\partial t}w_{m,n}&=\frac{\partial}{\partial t}\left[ c^{*}_{n}(t)c_{m}(t) \right] \\
+&=\frac{\partial}{\partial t}\left[ c^{*}_{n}c_{m}\exp\left\{\frac{it}{\hbar}(E_{n}-E_{m}) \right\} \right] \\
+&= c^{*}_{n}c_{m}\frac{i}{\hbar}(E_{n}-E_{m})\exp\left\{\frac{it}{\hbar}(E_{n}-E_{m}) \right\} \\
+&=\frac{i}{\hbar}(E_{n}-E_{m}) w_{m,n}
+\end{aligned}
+\end{equation}
+
+可以将这个关系泛化到算符的层面：
+\begin{equation}
+\dot{\hat{w}}=\frac{i}{\hbar}(\hat{w}\hat{H}-\hat{H}\hat{w})
+\end{equation}
+
+证明方法是将上式左乘$\langle \psi_{m}|$，右乘$|\psi_{n} \rangle$，利用它们是$\hat{H}$的特征状态的性质，以及哈密顿算符的特征状态基是完备的性质即可。如果想要$\hat{w}$平稳，则等价地应该有：
+\begin{equation}
+\left[ \hat{w},\hat{H}\right] =0
+\end{equation}
+
+即二者可交换，这继而蕴含二者可同时对角化，所以$\hat{w}$的矩阵形式仅有对角元素非零，这就导致子系统物理量的平均值退化为：
+\begin{equation}
+\langle f\rangle = \sum_{n} w_{n,n} \langle \psi_{n} |\hat{f}|\psi_{n} \rangle
+\end{equation}
+
+类比上一节中关于独立子系统的推导，并联系$w$应和运动积分相关的事实，可以类似地得出，对于一个子系统而言：
+\begin{equation}
+\ln w_{n,n}=\alpha+\beta E_{n}
+\end{equation}
+
+沿用微正则的假设，我们现在需要处理$\hat{H}$的特征状态退化的问题，退化的存在使得$w_{n,n}$上的分布需要进行重新累积，才能得到能量谱上的正确分布。这要求我们对于相空间以$E$为参照进行划分，譬如在以动量空间为相空间的情形下，这种划分就是同心球壳，但在有不均匀外场的情况下，情况会变得复杂起来。在微正则的假设下，所有满足$E_{q,p}=E_{0}$的量子态都有相同的概率测度，而$E_{q,p}\neq E_{0}$的量子态概率测度为零。以$\Gamma(E)$记相空间中，能量在$E$以下的量子态数量，则它在能量上引导了一个分布，在$E$处微分，可得到在$(E,E+\Delta E)$中的量子态数量为：
+\begin{equation}
+\Delta\Gamma= \frac{\text{d} \Gamma(E)}{\text{d} E} \Delta E
+\end{equation}
+
+从已经可计算的$w_{n,n}$出发，我们想要变换得到在能量上的观测密度$W(E)$，直观上，这需要我们取出在$(E,E+\Delta E)$中所有的量子态，并将这些量子态所对应的$w$全部相加即可。考虑到$w_{n,n}$又仅仅和$E_{n}$相关，那么$(E,E+\Delta E)$中所有的量子态，因为具有相同的能量，所以具有相同的$w_{n,n}$，则求和转化为乘积，而这球壳中量子态的数量由之前一式给出：
+\begin{equation}
+W(E)\Delta E = w(E)\cdot\frac{\text{d} \Gamma(E)}{\text{d} E} \Delta E 
+\end{equation}
+
+在微正则假设下，全部的概率密度都必须集中在$(E,E+\Delta E)$的壳内，所以：
+\begin{equation}
+W(E)\Delta E = w(E)\Delta \Gamma = 1
+\end{equation}
+
+到目前为止，关于量子态的讨论是脱离经典图景中的相空间的。二者之间的联系是：在以广义坐标和动量表征的相空间中，每个体积为$(2\pi\hbar)^{s}$的微元空间对应一个量子态，所以可以在经典图景的相空间中对量子态进行计数，只需要在其中构造出等能量流形再划分即可。可以粗略地认为：
+\begin{equation}
+\Delta \Gamma = \frac{\Delta q \Delta p}{(2\pi\hbar)^{s}}
+\end{equation}
+
+
+
+\subsection{熵}
+沿用上一节末尾的讨论，一个子系统的熵定义为：
+\begin{equation}
+S = \ln \Delta \Gamma=\ln \frac{\Delta q \Delta p}{(2\pi\hbar)^{s}}
+\end{equation}
+
+因为$\Delta \Gamma \geq 1$，所以子系统的熵不会是负的。在微正则假设下：
+\begin{equation}
+S = \ln \Delta \Gamma = -\ln w(E)
+\end{equation}
+
+在更一般的情形中，应该有：
+\begin{equation}
+\begin{aligned}
+S &= \langle -\ln w(E) \rangle \\
+&= -\sum_{n} w_{n}\ln w_{n} \\
+&= -\text{tr}(\hat{w}\ln \hat{w})
+\end{aligned}
+\end{equation}
+
+在这更一般地情形中，子系统的能量可能有所浮动，所以需要包括更多的一系列的特征状态。经典图景中类似地：
+\begin{equation}
+S = -\langle \ln \left[ (2\pi\hbar)^{s} \rho  \right] \rangle
+\end{equation}
+
+现在考虑将一个整体的系统划分为一系列独立的子系统，分别对应统计权重$\Delta \Gamma_{1},\Delta \Gamma_{2},\cdots$，则母系统对应的量子态数量应为：$\prod_{a}\Delta\Gamma_{a}$，而熵则相应是可加的。
+
+现在将微正则假设应用于这个母系统，当各个子系统的能量在$E_{a}^{*}$附近进行微小的涨落$\Delta E_{a}^{*}$，并且不太影响母系统总能量时，它们总共对应的量子态数量为：
+\begin{equation}
+\begin{aligned}
+\prod_{a}\frac{\text{d}\Gamma_{a}}{\text{d}E_{a}}(E^{*}_{a})\Delta E_{a}&= \prod_{a}\frac{\Delta\Gamma_{a}(E^{*}_{a})}{\Delta E_{a}^{*}}\Delta E_{a}\\
+&= \exp\left\{S(E_{1}^{*},E_{2}^{*},\cdots) \right\}\prod_{a}\frac{\Delta E_{a}}{\Delta E^{*}_{a}} \\
+&\propto \exp\left\{S(E_{1}^{*},E_{2}^{*},\cdots) \right\}\prod_{a} \Delta E_{a}
+\end{aligned}
+\end{equation}
+
+而我们又知道，每个子系统的能量都在$E_{a}$为均值附近涨落，所以$S(*)$应该在$E_{a}^{*}=\bar{E}_{a}$附近取到最大值，因为这附近的区域，近似为微正则分布时，由$w$给出最多的量子态。总结起来，母系统最可能处于的状态，对应该系统的熵$S$最大的状态。这就是熵增长定律的一种表述。
+
+另一个推论是，给定一个能量区间$(E,E+\Delta E)$时，对应其中量子态数目$\Delta \Gamma = \exp(S)$，则其中各个能量态之间的平均距离为：
+\begin{equation}
+D(E)=\Delta E \cdot \exp(-S(E))
+\end{equation}
+
+当系统很大时，系统的熵也相对更大，所以能量态之间的平均距离更小，能量谱更稠密。
+
+统计物理里的熵和信息论中的信源熵可以进行很密切的关联，首先考虑微正则情况，此时熵可以通过相空间体积定义，也可以通过$w$定义，假设此时子系统的能量为$E_{0}$，且拥有总共$\Delta \Gamma_{0}$个量子态：
+\begin{equation}
+S = \ln \Delta \Gamma_{0} = -\ln w_{0}
+\end{equation}
+
+这个熵和一个拥有$\Delta \Gamma_{0}$个符号，且各个符号输出概率相同的信源的信源熵相同：
+\begin{equation}
+\begin{aligned}
+S_{I}&=\sum_{i=1}^{\Delta\Gamma_{0}}-p_{i}\ln p_{i}\\
+&=\Delta \Gamma_{0} \frac{1}{\Delta \Gamma_{0}}\ln \Delta\Gamma_{0} \\
+&=S
+\end{aligned}
+\end{equation}
+
+当子系统拥有不同的能级时，微正则情况中利用相空间体积的定义不在适用，考虑拥有两个能级$E_{1},E_{2}$的情况，且分别对应量子态数量$\Delta\Gamma_{1},\Delta\Gamma_{2}$，被观测概率分别为$p_{1},p_{2}$。且需知，任何对应能量为$E_{i}$的特征状态被观测到的概率都必为$p_{i}$，不会出现能量符合但是未被包含进入系综的情况，因为$\ln w=\alpha+\beta E$。我们有归一化条件：
+\begin{equation}
+\Delta\Gamma_{1}p_{1}+\Delta\Gamma_{2}p_{2}=1
+\end{equation}
+
+系统被发现在$E_{i}$的概率为$\Delta\Gamma_{i}p_{i}$，此时系统的熵，根据定义，应该为：
+\begin{equation}
+\begin{aligned}
+S&= -\sum_{i=1}^{\Delta\Gamma_{1}}p_{1}\ln p_{1} - \sum_{i=1}^{\Delta\Gamma_{2}}p_{2}\ln p_{2} \\
+&= -\Delta\Gamma_{1}p_{1}\ln p_{1} - \Delta\Gamma_{2}p_{2}\ln p_{2} \\
+&= p(E_{1})(-\ln p_{1}) + p(E_{2})(-\ln p_{2}) \\
+&= \mathbb{E}_{p(E_{i})}\left[ S_{i} \right]-\left[p(E_{1})\ln p(E_{1})+p(E_{2})\ln p(E_{2}) \right]
+\end{aligned}
+\end{equation}
+
+其中$S_{i}$为对应能量为$E_{i}$的微正则系综的熵。换言之，具有混合能量态的系统（非微正则系统）的热力学熵是一系列微正则系综的熵的期望，再加上选择能量的信息熵，引导该期望的分布是观测该系统坍塌到各个能量态的概率。从信息论的角度，这等同于一个混合信源，混合信源发信的过程由：选择子信源，子信源发信组成，则整体的熵，即不确定性由两个部分构成：选择信源的不确定性、各个信源的不确定性。
+
+上式作为非微正则系统的熵，写出了以熵的相空间定义导出的一般性情况。
+
+\newpage
+\section{热力学}
+\subsection{温度，热力学第零、第二定律}
+我们从系统整体的熵增加原理开始，考虑将整个系统划分为两个子部分，分别具有$E_{1},E_{2},S_{1},S_{2}$，而$S=S_{1}+S_{2}$，$E=E_{1}+E_{2}$，给定$E$，并且最大化熵，这要求：
+\begin{equation}
+\begin{aligned}
+\frac{\text{d}S}{\text{d}E_{1}}&=\frac{\text{d}S_{1}}{\text{d}E_{1}}+\frac{\text{d}S_{2}}{\text{d}E_{1}}\\
+&=\frac{\text{d}S_{1}}{\text{d}E_{1}}+\frac{\text{d}S_{1}}{\text{d}E_{2}}\frac{\text{d}E_{2}}{\text{d}E_{1}} \\
+&=\frac{\text{d}S_{1}}{\text{d}E_{1}}-\frac{\text{d}S_{2}}{\text{d}E_{2}}=0
+\end{aligned}
+\end{equation}
+
+定义系统的（绝对）温度为：
+\begin{equation}
+\frac{1}{T}=\frac{\text{d}S_{1}}{\text{d}E_{1}}=\frac{\text{d}S_{2}}{\text{d}E_{2}}
+\end{equation}
+
+是属于这个系统平衡时，本征的状态。如果一个系统的两个子系统未达到平衡，则根据熵的增加性，应该有系统总熵对时间的微商大于零：
+\begin{equation}
+\begin{aligned}
+\frac{\text{d}S}{\text{d}t}&= \frac{\text{d}S_{1}}{\text{d}E_{1}}\frac{\text{d}E_{1}}{\text{d}t}+\frac{\text{d}S_{2}}{\text{d}E_{2}}\frac{\text{d}E_{2}}{\text{d}t}\\
+&=(\frac{1}{T_{1}}-\frac{1}{T_{2}})\frac{\text{d}E_{1}}{\text{d} t}>0
+\end{aligned}
+\end{equation}
+
+所以如果$T_{1}>T_{2}$，则应有$\frac{\text{d}E_{1}}{\text{d} t}<0$，即能量从子系统1流向子系统2，直到二者的温度相等。以上两个结论分别对应热力学第零、第一定律。
+
+值得回顾一下熵如何作为内能的函数$S(E)$，在量子的场景中，如果子系统的内能已知，则其可以近似为以$E$为能量的微正则系统，此时通过在相空间中对$\Gamma$对能量在$E$处微分，就可以得到$\Delta\Gamma$，继而得到熵。在经典场景中，一样可以以$E$引导分布$\rho$并代入熵在经典场景中的定义式即可。
+
+\subsection{绝热过程和压强}
+绝热过程是这样一种过程，外界对于系统产生缓慢的影响，其影响造成改变的速度小于系统达到即时平衡的速度，此时系统的哈密顿可以写成：
+\begin{equation}
+E(q,p,\lambda(t))
+\end{equation}
+
+绝热过程的熵是不变的，考虑熵的变化率应该取决于外场的变化率：
+\begin{equation}
+\frac{\text{d}S}{\text{d}t} = f\left(\frac{\text{d}\lambda}{\text{d}t}\right)
+\end{equation}
+
+将未知的取决关系按照级数展开：
+\begin{equation}
+\frac{\text{d}S}{\text{d}t}=C_{0}+C_{1}\frac{\text{d}\lambda}{\text{d}t}+C_{2}\left( \frac{\text{d}\lambda}{\text{d}t}\right)^{2}+\cdots
+\end{equation}
+
+而其中$C_{0}=C_{1}=0$，因为如果$\dot{\lambda}$为零，则平衡时应有$\dot{S}=0$，同时$\dot{\lambda}$可能小于零，但是$\dot{S}\geq 0$，所以当外界变化缓慢时，保留二次项的近似：
+\begin{equation}
+\frac{\text{d}S}{\text{d}\lambda} = C_{2}\frac{\text{d}\lambda}{\text{d}t}
+\end{equation}
+
+故$\dot{\lambda}\rightarrow 0$时，$\frac{\text{d}S}{\text{d}\lambda} \rightarrow 0$，即系统的熵在绝热过程中不变。利用绝热过程的哈密顿量形式，考察$\dot{E}$，其中$E$是平均的哈密顿量，利用正则关系：
+\begin{equation}
+\frac{\text{d}E(q,p,\lambda)}{\text{d}t}=\frac{\partial E(q,p,\lambda)}{\partial t}=\frac{\partial E(q,p,\lambda)}{\partial \lambda}\frac{\partial \lambda}{\partial t}
+\end{equation}
+
+所以：
+\begin{equation}
+\begin{aligned}
+\frac{\text{d}E}{\text{d}t}&=\frac{\int E(q,p,\lambda(t))\rho(q,p,\lambda(t))\text{d}q\text{d}p}{\text{d}t}\\
+&=\int \frac{\partial E(q,p,\lambda)}{\partial \lambda}\frac{\partial \lambda}{\partial t}  \rho(q,p,\lambda(t))\text{d}q\text{d}p \\
+&=\dot{\lambda} \frac{\int E(q,p,\lambda(t))\rho(q,p,\lambda(t))\text{d}q\text{d}p}{\partial \lambda}\\
+&=\dot{\lambda}\frac{\partial \bar{E(\lambda)}}{\partial \lambda}
+\end{aligned}
+\end{equation}
+
+其中$E(\lambda)$为外场参数为$\lambda$时能量的平均值。另一方面，能量$E$是熵$S$和参量$\lambda$的函数，所以：
+\begin{equation}
+\frac{\text{d}E}{\text{d}t}=\frac{\partial E}{\partial S}\frac{\partial S}{\partial t} + \frac{\partial E}{\partial\lambda}\frac{\partial\lambda}{\partial t}
+\end{equation}
+
+而绝热过程中熵不变，联立上两式：
+\begin{equation}
+\frac{\partial \bar{E(\lambda)}}{\partial \lambda}=\left(\frac{\partial E}{\partial\lambda}\right)_{S}
+\end{equation}
+
+一个应用该式的例子就是求系统中的压强，考虑系统中微元面积$\text{d}\textbf{s}$上的作用力，根据力的定义，它应该等于：
+\begin{equation}
+\textbf{F}=-\frac{\partial E(q,p,\textbf{r})}{\partial \textbf{r}}
+\end{equation}
+
+所以平均的压力为：
+\begin{equation}
+\begin{aligned}
+\bar{\textbf{F}}&=-\frac{\partial \bar{E}(q,p,\textbf{r})}{\partial \textbf{r}}\\
+&=-\left(\frac{\partial E}{\partial \textbf{r}} \right)_{S} \\ 
+&=-\left(\frac{\partial E}{\partial V}\frac{\partial V}{\partial \textbf{r}} \right)_{S} \\ 
+&=-\left(\frac{\partial E}{\partial V} \right)_{S} \frac{\partial V}{\partial \textbf{r}}\\ 
+&=-\left(\frac{\partial E}{\partial V} \right)_{S} \text{d}\textbf{s}\\ 
+\end{aligned}
+\end{equation}
+
+定义压强为：
+\begin{equation}
+P=-\left(\frac{\partial E}{\partial V} \right)_{S} 
+\end{equation}
+
+则帕斯卡定律，即面元上的压力指向法向，并且和面元大小成正比成立。
+
+根据熵和能量的可加性，应该知道，给定能量（熵）时，熵（能量）仅和体积相关。
+
+一个利于理解这一点的方法是联想微正则状态中的量子气体，对于量子气体而言，如果给定能量，则其熵只和该能量对应的量子态的数量相关，而这一数量，在自由气体的情况下，在动量上有所限制（在球壳上），但是在位置上的限制完全由气体的体积给定。相反地，如果给定熵，则系统的量子态数量被限制了，而给定不同的体积，就可以类似地影响动量，继而影响能量。
+
+【可以这样联系一种理想图景，三维空间的三个独立坐标对应动量的三个维度，量子态数量就是球壳的体积，而宏观气体的体积，以理想势垒的形式，在这个球壳中规定一个天顶角。】
+
+在这一关系可以被理解以后，自然地有：
+\begin{equation}
+\begin{aligned}
+\text{d}E &= \frac{\partial E}{\partial S}\text{d}S+\frac{\partial E}{\partial V}\text{d}V \\
+&= T\text{d}S - P\text{d}V
+\end{aligned}
+\end{equation}
+
+对于相接触的两个系统，可以得出它们在平衡时，平衡处压强相等的结论，分别记二者的体积为$V_{1},V_{2}，V_{1}+V_{2}=V$，则$V_{1}$应变化直到总体的熵取极大值：
+\begin{equation}
+\begin{aligned}
+\frac{\partial S}{\partial V_{1}}&= \frac{\partial S_{1}}{\partial V_{1}}+\frac{\partial S_{2}}{\partial V_{1}}\\
+&=\frac{\partial S_{1}}{\partial V_{1}}-\frac{\partial S_{2}}{\partial V_{{2}}} = 0
+\end{aligned}
+\end{equation}
+
+但是对于子系统而言有：
+\begin{equation}
+\frac{\partial S_{i}}{\partial V_{i}}=\frac{P_{i}}{T_{i}}
+\end{equation}
+
+因为：
+\begin{equation}
+\text{d}S = \frac{1}{T}\text{d}E+\frac{P}{T}\text{d}V
+\end{equation}
+
+所以热力学第零定律给出压强的均衡性。
+
+\subsection{热力学第一定律，麦克斯韦关系的其他元素}
+微元功的定义从直观出发：
+\begin{equation}
+\text{d}R=-P\text{d}V
+\end{equation}
+其中约定外界对系统做功时$R$是正的，此时$\text{d}V$是一个负值。系统内能的改变一方面来自于功，剩余的部分被定义为热量：
+\begin{equation}
+\text{d}E=\text{d}R+\text{d}Q
+\end{equation}
+
+这就是热力学第一定律，它直接给出：
+\begin{equation}
+\text{d}Q=\text{d}E+P\text{d}V
+\end{equation}
+
+再利用$\text{d}E=T\text{d}S-P\text{d}V$，就有：
+\begin{equation}
+\text{d}Q=T\text{d}S
+\end{equation}
+
+比热的定义是升高温度时吸收的热量，也即热量对温度的微商，通常分别考虑系统体积一定和压强一定的情况：
+\begin{equation}
+C_{V}=T\left(\frac{\partial S}{\partial T} \right)_{V},C_{P}=T\left(\frac{\partial S}{\partial T} \right)_{P},
+\end{equation}
+
+在实际的非理想热过程中，除了物理上能量的交换以外，可能还有其他形式（譬如化学）能量的变化，导致实际的熵增速率比吸热带来的更多，这对应于不可逆过程：
+\begin{equation}
+\delta Q < T\delta S
+\end{equation}
+
+这一点也可以从卡诺热机的理论出发来证得。【******】
+
+对于定容过程，即$\text{d}V=0$，有$\text{d}Q=\text{d}E$，而对于恒压过程，即$\text{d}P=0$，可把热量增量写成某个宏观量的微分：
+\begin{equation}
+\begin{aligned}
+\text{d}Q&= \text{d}E+P\text{d}V+V\text{d}P \\
+&=\text{d}(E+PV)\\
+&=\text{d}W
+\end{aligned}
+\end{equation}
+
+其中$W=E+PV$是系统的焓，在恒压变化中，焓的变化就是系统吸收的热量。依旧可以利用$\text{d}E=T\text{d}S-P\text{d}V$化约：
+\begin{equation}
+\text{d}W=T\text{d}S+V\text{d}P
+\end{equation}
+
+即$W$可以写成熵和压强的函数，两个偏导数分别给出系统的温度和体积。如果恒压变换同时还是热绝缘的（这是很容易实现的，只需要将绝热材料以恒定的压强封闭气体系统），则系统的焓是一个常量。
+
+关系$\text{d}E=T\text{d}S-P\text{d}V$还允许我们写出：
+\begin{equation}
+\begin{aligned}
+C_{V}&= T\left(\frac{\partial S}{\partial T}\right)_{V} \\
+&= T\left(\frac{1}{T} \frac{\partial E}{\partial T} \right)_{V} \\
+&= \left(\frac{\partial E}{\partial T} \right)_{V}
+\end{aligned}
+\end{equation}
+
+类似地$C_{P}=\left(\frac{\partial W}{\partial T} \right)_{P}$，因为：
+\begin{equation}
+\begin{aligned}
+C_{P}&= T\left(\frac{\partial S}{\partial T}\right)_{P} \\
+&= T\left(\frac{1}{T} \frac{\partial W}{\partial T} \right)_{P} \\
+&= \left(\frac{\partial W}{\partial T} \right)_{P}
+\end{aligned}
+\end{equation}
+
+从$\text{d}E=T\text{d}S-P\text{d}V$和$\text{d}W=T\text{d}S+V\text{d}P$中可以认为焓之于恒压过程，类比于能量之于定容过程。从能量到焓的过程可以认为是一种勒让德变换：
+\begin{equation}
+\begin{aligned}
+\text{d}E &= T\text{d}S-P\text{d}V \\
+\text{d}E &= T\text{d}S - \left[\text{d}(PV)-V\text{d}P \right]\\
+\text{d}(E+PV)&=T\text{d}S+V\text{d}P \\
+\end{aligned}
+\end{equation}
+
+注意这一变换对于热过程的宏观条件（绝热、等压、定容等等）没有任何预设。除了对$(P,V)$应用勒让德变换，也可以对于$(T,S)$应用变换：
+\begin{equation}
+\begin{aligned}
+\text{d}E&=T\text{d}S-P\text{d}V\\
+\text{d}E&=\left[\text{d}(TS)-S\text{d}T \right]-P\text{d}V \\
+\text{d}(E-TS)&=S\text{d}T-P\text{d}V \\
+\text{d}(E-TS+PV)&=S\text{d}T+V\text{d}P \\
+\end{aligned}
+\end{equation}
+
+其中$F=E-TS$和$\Phi=E-TS+PV$分别是系统的自由能（又称Helmholtz自由能）和热力学势（又称Gibbs势能）
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale = 0.6]
+\node at (-3,-3) {$S$};
+\node at (0,-3) {$W$};
+\node at (3,-3) {$P$};
+\node at (-3,0) {$E$};
+\node at (3,0) {$\Phi$};
+\node at (-3,3) {$V$};
+\node at (0,3) {$F$};
+\node at (3,3) {$T$};
+\draw (-2,-2)--(2,2) [-latex];
+\draw (2,-2)--(-2,2) [-latex];
+
+\end{tikzpicture}
+\caption{四个宏观热力学量和四个全微分}
+\end{figure}
+
+利用简单的微分就可以得出它们之间进一步的联系，譬如：
+\begin{equation}
+\begin{aligned}
+E&=F+TS \\
+&=F - T\left(\frac{\partial F}{\partial T} \right)_{V} \\ 
+&=-T^{2}\left(\frac{\partial}{\partial T}\frac{F}{T} \right)_{V}
+\end{aligned}
+\end{equation}
+
+完全类似地：
+\begin{equation}
+W=-T^{2}\left(\frac{\partial}{\partial T}\frac{\Phi}{T} \right)_{P}
+\end{equation}
+
+当系统所处在外场有其他的一系列参量$\left\{\lambda_{i} \right\}_{i}$时，其哈密顿量的微分有其他的余项：
+\begin{equation}
+\text{d}E=T\text{d}S-P\text{d}V+\sum_{i}\Lambda_{i}\text{d}\lambda_{i}
+\end{equation}
+
+而对于$(P,V)$或者$(S,T)$的勒让德变换不影响这些额外参数，所以有：
+\begin{equation}
+\frac{\partial \bar{E}(q,p,\lambda)}{\partial \lambda}=\left(\frac{\partial E}{\partial \lambda} \right)_{S,V}=\left(\frac{\partial F}{\partial \lambda} \right)_{T,V}
+\end{equation}
+
+可以改变$E$或者$F$为其他的全微分，并更改对应的不变量。
+
+举例而言，若已知体系自由能的表达式，要求粒子的平均动能，我们首先有：
+\begin{equation}
+\frac{\partial E(q,p,m)}{\partial m}=-\frac{1}{m}K(p)
+\end{equation}
+
+因为能量中势能的部分和质量无关，而动能部分$K=\frac{p^{2}}{2m}$，所以对于平均动能：
+\begin{equation}
+\bar{K}(p)=-m\cdot \frac{\partial \bar{E}(q,p,m)}{\partial m}=-m\cdot \left(\frac{\partial F}{\partial m} \right)_{T,V}
+\end{equation}
+
+当$\lambda$的变化不大时，四个全微分的增量近似都相等：
+\begin{equation}
+\delta E_{S,V}=\delta F_{T,V}=\cdots
+\end{equation}
+
+这一性质叫做\textbf{小增量定理}。
+
+几个全微分形式允许我们在不同的热过程中挑选合适的量来简化表达，联立$\text{d}Q \leq T\text{d}S$，$\text{d}Q=\text{d}E+P\text{d}V$，有：
+\begin{equation}
+\text{d}E\leq T\text{d}S - P\text{d}V
+\end{equation}
+
+这一不可逆过程带来的不等关系可以带来：
+\begin{equation}
+\frac{\text{d}E}{\text{d}t}\leq T\frac{\text{d}S}{\text{d}t}-P\frac{\text{d}V}{\text{d}t}
+\end{equation}
+
+所以对于$(T,V)$恒定的热过程，有：
+\begin{equation}
+\frac{\text{d}F}{\text{d}t}=\frac{\text{d}(E-TS)}{\text{d}t}=\dot{E}-T\dot{S}-S\dot{T}\leq 0
+\end{equation}
+
+即对于$(T,V)$恒定的热过程，系统的自由能会自发地下降到极小值。
+
+类似地，对于$(T,P)$恒定的热过程，系统的热力学势会自发地下降到极小值。
+
+但是对于能量和焓而言，想要确保其自发地下降需要确保系统的熵恒定，这从实验的角度较难保证。
+
+
+\end{spacing}
+\end{document}
+%插入图片格式：
+%\begin{figure}[h]
+%\small
+%\centering
+%\includegraphics[width=6cm]{./gaussian/Maxwell_Laplace_Gaussian_.jpg}
+%\caption{拉普拉斯近似，$\sigma^{2}=0.3$} \label{fig:aa}
+%\end{figure}
